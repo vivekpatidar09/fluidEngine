@@ -7,38 +7,46 @@ const defaultSettings = {
   fontSize: "16px",
 };
 
+const defaultItems = [
+  {
+    id: `item-${Date.now()}`,
+    text: "New Draggable Item",
+    top: "20%",
+    left: "20%",
+  },
+];
+
 const HomePageBuilder = () => {
   const [sections, setSections] = useState([
     {
       id: "section-hero",
       title: "Hero Section",
       enabled: false,
-      bgColor: defaultSettings.bgColor,
+      bgColor: "#D4FFD1",
       fontFamily: defaultSettings.fontFamily,
-      fontSize: "32px", // Override default for this section
+      fontSize: "32px",
       textAlign: "center",
       items: [
         {
           id: "hero-heading",
           text: "Welcome to Our Website",
           top: "40%",
-          left: "50%",
+          left: "10%",
         },
         {
           id: "hero-subheading",
           text: "We provide amazing services",
-          top: "50%",
-          left: "50%",
+          top: "60%",
+          left: "10%",
         },
-        { id: "hero-button", text: "Get Started", top: "60%", left: "50%" },
       ],
     },
     {
       id: "section-about",
       title: "About Us Section",
       enabled: false,
-      bgColor: defaultSettings.bgColor,
-      fontFamily: "Georgia, serif", // Override default for this section
+      bgColor: "#E6D6D6",
+      fontFamily: "Georgia, serif",
       fontSize: defaultSettings.fontSize,
       textAlign: "left",
       items: [
@@ -51,8 +59,8 @@ const HomePageBuilder = () => {
         {
           id: "about-paragraph",
           text: "We have been in business for over 10 years...",
-          top: "20%",
-          left: "10%",
+          top: "30%",
+          left: "0%",
         },
       ],
     },
@@ -60,8 +68,8 @@ const HomePageBuilder = () => {
       id: "section-services",
       title: "Services Section",
       enabled: false,
-      bgColor: "#eef7ff", // Override default for this section
-      fontFamily: "Roboto, sans-serif", // Override default for this section
+      bgColor: "#eef7ff",
+      fontFamily: "Roboto, sans-serif",
       fontSize: "20px",
       textAlign: "center",
       items: [
@@ -69,18 +77,18 @@ const HomePageBuilder = () => {
           id: "services-heading",
           text: "Our Services",
           top: "10%",
-          left: "50%",
+          left: "20%",
         },
-        { id: "service-1", text: "Web Development", top: "30%", left: "25%" },
-        { id: "service-2", text: "Graphic Design", top: "30%", left: "50%" },
-        { id: "service-3", text: "Digital Marketing", top: "30%", left: "75%" },
+        { id: "service-1", text: "Web Development", top: "30%", left: "20%" },
+        { id: "service-2", text: "Graphic Design", top: "50%", left: "20%" },
+        { id: "service-3", text: "Digital Marketing", top: "65%", left: "20%" },
       ],
     },
     {
       id: "section-contact",
       title: "Contact Us Section",
       enabled: false,
-      bgColor: defaultSettings.bgColor,
+      bgColor: "#C2FFFF",
       fontFamily: "Arial, sans-serif",
       fontSize: defaultSettings.fontSize,
       textAlign: "center",
@@ -89,24 +97,33 @@ const HomePageBuilder = () => {
           id: "contact-heading",
           text: "Get in Touch",
           top: "10%",
-          left: "50%",
+          left: "30%",
         },
         {
           id: "contact-email",
           text: "email@example.com",
           top: "30%",
-          left: "50%",
+          left: "20%",
         },
-        { id: "contact-phone", text: "+123 456 7890", top: "40%", left: "50%" },
+        { id: "contact-phone", text: "+123 456 7890", top: "40%", left: "20%" },
         {
           id: "contact-address",
           text: "123 Main Street, City, Country",
           top: "50%",
-          left: "50%",
+          left: "10%",
         },
       ],
     },
   ]);
+
+  const [newSection, setNewSection] = useState({
+    title: "",
+    bgColor: defaultSettings.bgColor,
+    fontFamily: defaultSettings.fontFamily,
+    fontSize: defaultSettings.fontSize,
+    textAlign: "left",
+    items: defaultItems,
+  });
 
   const handleTextChange = (sectionId, itemId, newText) => {
     setSections((prevSections) =>
@@ -156,6 +173,23 @@ const HomePageBuilder = () => {
           : section
       )
     );
+  };
+
+  const addNewSection = () => {
+    const newId = `section-${Date.now()}`;
+    setSections((prevSections) => [
+      ...prevSections,
+      { ...newSection, id: newId, enabled: true },
+    ]);
+
+    setNewSection({
+      title: "",
+      bgColor: defaultSettings.bgColor,
+      fontFamily: defaultSettings.fontFamily,
+      fontSize: defaultSettings.fontSize,
+      textAlign: "left",
+      items: defaultItems,
+    });
   };
 
   return (
@@ -264,6 +298,79 @@ const HomePageBuilder = () => {
               )}
             </div>
           ))}
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-4">Add New Section</h3>
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Section Title
+              </label>
+              <input
+                type="text"
+                value={newSection.title}
+                onChange={(e) =>
+                  setNewSection({ ...newSection, title: e.target.value })
+                }
+                className="mt-1 border-gray-700 border-2 block w-full"
+              />
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Background Color
+              </label>
+              <input
+                type="color"
+                value={newSection.bgColor}
+                onChange={(e) =>
+                  setNewSection({ ...newSection, bgColor: e.target.value })
+                }
+                className="mt-1 block w-full"
+              />
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Font Family
+              </label>
+              <select
+                value={newSection.fontFamily}
+                onChange={(e) =>
+                  setNewSection({ ...newSection, fontFamily: e.target.value })
+                }
+                className="mt-1 block w-full"
+              >
+                <option value="Helvetica, Arial, sans-serif">Helvetica</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Roboto, sans-serif">Roboto</option>
+                <option value="Arial, sans-serif">Arial</option>
+              </select>
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Font Size
+              </label>
+              <input
+                type="number"
+                value={newSection.fontSize.replace("px", "")}
+                onChange={(e) =>
+                  setNewSection({
+                    ...newSection,
+                    fontSize: `${e.target.value}px`,
+                  })
+                }
+                className="mt-1 block w-full"
+              />
+            </div>
+
+            <button
+              onClick={addNewSection}
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Add Section
+            </button>
+          </div>
         </div>
 
         <div className="lg:col-span-2 bg-gray-50 p-6 shadow-lg rounded-lg">
@@ -279,7 +386,7 @@ const HomePageBuilder = () => {
                     fontFamily: section.fontFamily,
                     fontSize: section.fontSize,
                     textAlign: section.textAlign,
-                    height: "500px", // Adjusted for better visibility
+                    height: "500px",
                     position: "relative",
                   }}
                 >
@@ -289,8 +396,8 @@ const HomePageBuilder = () => {
                       key={item.id}
                       bounds="parent"
                       position={{
-                        x: (parseFloat(item.left) / 100) * 500, // Assuming section width is 500px
-                        y: (parseFloat(item.top) / 100) * 500, // Assuming section height is 500px
+                        x: (parseFloat(item.left) / 100) * 400,
+                        y: (parseFloat(item.top) / 100) * 500,
                       }}
                       onDrag={(e, data) =>
                         handleDrag(e, data, section.id, item.id)
@@ -304,7 +411,7 @@ const HomePageBuilder = () => {
                           textAlign: item.textAlign || section.textAlign,
                           position: "absolute",
                           transform: "translate(-50%, -50%)",
-                          fontSize: "calc(10px + 2vw)", // Responsive font size
+                          fontSize: "calc(10px + 2vw)",
                         }}
                         contentEditable
                         suppressContentEditableWarning={true}
