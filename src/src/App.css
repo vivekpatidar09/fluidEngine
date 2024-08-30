@@ -1,0 +1,25 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section-selector {
+  margin: 20px;
+}
+
+.section-selector div {
+  margin-bottom: 10px;
+}
+
+.section-selector input[type="text"],
+.section-selector textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.homepage-preview {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
