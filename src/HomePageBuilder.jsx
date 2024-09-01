@@ -24,19 +24,19 @@ const HomePageBuilder = () => {
       enabled: false,
       bgColor: "#D4FFD1",
       fontFamily: defaultSettings.fontFamily,
-      fontSize: "32px",
+      fontSize: "16px",
       textAlign: "center",
       items: [
         {
           id: "hero-heading",
           text: "Welcome to Our Website",
-          top: "40%",
+          top: "10%",
           left: "10%",
         },
         {
           id: "hero-subheading",
           text: "We provide amazing services",
-          top: "60%",
+          top: "30%",
           left: "10%",
         },
       ],
@@ -48,7 +48,7 @@ const HomePageBuilder = () => {
       bgColor: "#E6D6D6",
       fontFamily: "Georgia, serif",
       fontSize: defaultSettings.fontSize,
-      textAlign: "left",
+      textAlign: "center",
       items: [
         {
           id: "about-heading",
@@ -91,7 +91,7 @@ const HomePageBuilder = () => {
       bgColor: "#C2FFFF",
       fontFamily: "Arial, sans-serif",
       fontSize: defaultSettings.fontSize,
-      textAlign: "center",
+      textAlignt: "center",
       items: [
         {
           id: "contact-heading",
@@ -376,18 +376,16 @@ const HomePageBuilder = () => {
         <div className="lg:col-span-2 bg-gray-50 p-6 shadow-lg rounded-lg">
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
           {sections.map(
-            (section, index) =>
+            (section) =>
               section.enabled && (
                 <div
                   key={section.id}
-                  className="relative mb-8 p-6 rounded-lg"
+                  className="relative w-full h-96 mb-8 p-3 overflow-hidden"
                   style={{
                     backgroundColor: section.bgColor,
                     fontFamily: section.fontFamily,
                     fontSize: section.fontSize,
                     textAlign: section.textAlign,
-                    height: "500px",
-                    position: "relative",
                   }}
                 >
                   <h2 className="text-2xl font-bold mb-4">{section.title}</h2>
@@ -395,23 +393,20 @@ const HomePageBuilder = () => {
                     <Draggable
                       key={item.id}
                       bounds="parent"
-                      position={{
-                        x: (parseFloat(item.left) / 100) * 400,
-                        y: (parseFloat(item.top) / 100) * 500,
+                      defaultPosition={{
+                        x: (parseFloat(item.left) / 100) * 400, // 400 is an example width; adjust based on your layout
+                        y: (parseFloat(item.top) / 100) * 500, // 500 is an example height; adjust based on your layout
                       }}
                       onDrag={(e, data) =>
                         handleDrag(e, data, section.id, item.id)
                       }
                     >
                       <div
-                        className="p-2 border rounded-lg bg-white cursor-move"
+                        className="absolute cursor-move p-2 border rounded-lg bg-white"
                         style={{
-                          width: item.width || "auto",
-                          height: item.height || "auto",
-                          textAlign: item.textAlign || section.textAlign,
-                          position: "absolute",
-                          transform: "translate(-50%, -50%)",
-                          fontSize: "calc(10px + 2vw)",
+                          fontFamily: section.fontFamily,
+                          fontSize: section.fontSize,
+                          textAlign: section.textAlign,
                         }}
                         contentEditable
                         suppressContentEditableWarning={true}
